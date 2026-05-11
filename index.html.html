@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sean Tay — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0f0f0e;
+    --white: #faf9f6;
+    --teal: #0f6e56;
+    --teal-light: #e1f5ee;
+    --teal-mid: #1d9e75;
+    --amber: #ba7517;
+    --amber-light: #faeeda;
+    --gray: #888780;
+    --gray-light: #f1efe8;
+    --text: #1a1a18;
+    --muted: #5f5e5a;
+    --border: #d3d1c7;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: rgba(250,249,246,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--teal);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted);
+    transition: color 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .nav-links a:hover { color: var(--teal); }
+
+  /* SECTIONS */
+  section { padding: 6rem 3rem; max-width: 900px; margin: 0 auto; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 8rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: var(--teal-light);
+    color: var(--teal);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    line-height: 1.05;
+    letter-spacing: -2px;
+    color: var(--black);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--teal);
+  }
+
+  .hero-desc {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 3rem;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    border-radius: 0.35rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-primary {
+    background: var(--teal);
+    color: #fff;
+  }
+  .btn-primary:hover { background: var(--teal-mid); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--teal);
+    border: 1.5px solid var(--teal);
+  }
+  .btn-secondary:hover { background: var(--teal-light); }
+
+  .hero-scroll {
+    margin-top: 4rem;
+    font-size: 0.8rem;
+    color: var(--gray);
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-scroll::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 48px;
+    height: 3px;
+    background: var(--teal);
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.5rem;
+    letter-spacing: -1px;
+    line-height: 1.15;
+    color: var(--black);
+    margin-bottom: 1rem;
+  }
+
+  /* ABOUT */
+  #about .about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+
+  .about-text p { color: var(--muted); margin-bottom: 1rem; }
+  .about-text p strong { color: var(--text); font-weight: 500; }
+
+  .about-card {
+    background: var(--gray-light);
+    border-radius: 1rem;
+    padding: 2rem;
+    border: 0.5px solid var(--border);
+  }
+
+  .about-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 1.25rem;
+    color: var(--black);
+  }
+
+  .about-card ul { list-style: none; }
+  .about-card ul li {
+    font-size: 0.9rem;
+    color: var(--muted);
+    padding: 0.5rem 0;
+    border-bottom: 0.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .about-card ul li:last-child { border-bottom: none; }
+
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--teal-mid);
+    flex-shrink: 0;
+  }
+
+  /* PROJECTS */
+  #projects .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .project-card {
+    background: #fff;
+    border: 0.5px solid var(--border);
+    border-radius: 1rem;
+    padding: 2rem;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--teal);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .project-card:hover { border-color: var(--teal-mid); transform: translateY(-2px); }
+  .project-card:hover::before { transform: scaleX(1); }
+
+  .project-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--teal);
+    background: var(--teal-light);
+    padding: 0.25rem 0.7rem;
+    border-radius: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .project-tag.amber {
+    color: var(--amber);
+    background: var(--amber-light);
+  }
+
+  .project-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.35rem;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.75rem;
+    color: var(--black);
+  }
+
+  .project-card p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-link {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--teal);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-bottom: 1px solid var(--teal-light);
+    padding-bottom: 1px;
+    transition: border-color 0.2s;
+  }
+  .project-link:hover { border-color: var(--teal); }
+
+  .project-link svg { width: 14px; height: 14px; }
+
+  .project-card.featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #fff;
+  }
+  .project-card.featured::before { display: none; }
+  .project-card.featured:hover { transform: none; border-color: var(--teal); }
+
+  .project-card.featured .project-tag {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+  }
+  .project-card.featured h3 { color: #fff; }
+  .project-card.featured p { color: rgba(255,255,255,0.75); }
+  .project-card.featured .project-link { color: rgba(255,255,255,0.9); border-color: rgba(255,255,255,0.3); }
+  .project-card.featured .project-link:hover { border-color: #fff; color: #fff; }
+
+  .featured-visual {
+    background: rgba(255,255,255,0.1);
+    border-radius: 0.75rem;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .featured-visual svg { width: 80px; height: 80px; opacity: 0.6; }
+
+  /* SKILLS */
+  #skills .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 3rem;
+  }
+
+  .skill-card {
+    background: var(--gray-light);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    border: 0.5px solid var(--border);
+  }
+
+  .skill-card h4 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 1rem;
+  }
+
+  .skill-list { list-style: none; }
+  .skill-list li {
+    font-size: 0.9rem;
+    color: var(--muted);
+    padding: 0.3rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .skill-list li::before {
+    content: '';
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  /* EDUCATION */
+  #education .edu-block {
+    margin-top: 3rem;
+    border-left: 2px solid var(--teal-light);
+    padding-left: 2rem;
+  }
+
+  .edu-item {
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+  .edu-item::before {
+    content: '';
+    position: absolute;
+    left: -2.45rem;
+    top: 0.4rem;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--teal);
+    border: 2px solid var(--white);
+  }
+
+  .edu-item .year {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+
+  .edu-item h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--black);
+    margin-bottom: 0.25rem;
+  }
+
+  .edu-item .institution { color: var(--muted); font-size: 0.9rem; }
+  .edu-item p { font-size: 0.9rem; color: var(--muted); margin-top: 0.5rem; }
+
+  /* WHY KAPITOL */
+  #why {
+    background: var(--teal);
+    max-width: 100%;
+    padding: 6rem 0;
+  }
+
+  #why .inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 3rem;
+  }
+
+  #why .section-label { color: rgba(255,255,255,0.6); }
+  #why .section-title { color: #fff; }
+
+  #why p {
+    color: rgba(255,255,255,0.8);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    max-width: 680px;
+    margin-top: 1.5rem;
+  }
+
+  #why p strong { color: #fff; font-weight: 500; }
+
+  .why-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 3rem;
+  }
+
+  .pillar {
+    background: rgba(255,255,255,0.1);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+  }
+
+  .pillar h4 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+
+  .pillar p {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.65);
+    margin-top: 0;
+  }
+
+  /* CONTACT */
+  #contact { text-align: center; }
+  #contact .section-title { margin-bottom: 1rem; }
+  #contact p { color: var(--muted); margin-bottom: 2.5rem; }
+
+  .contact-form {
+    max-width: 560px;
+    margin: 2rem auto 0;
+    text-align: left;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-group label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 0.5px solid var(--border);
+    border-radius: 0.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    background: #fff;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--teal-mid);
+    box-shadow: 0 0 0 3px rgba(29,158,117,0.1);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 130px;
+    line-height: 1.6;
+  }
+
+  .form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .form-note {
+    font-size: 0.8rem;
+    color: var(--gray);
+  }
+
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    background: var(--teal-light);
+    border-radius: 0.75rem;
+    color: var(--teal);
+    font-weight: 500;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem 3rem;
+    font-size: 0.8rem;
+    color: var(--gray);
+    border-top: 0.5px solid var(--border);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards;
+  }
+
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.25s; }
+  .delay-3 { animation-delay: 0.4s; }
+  .delay-4 { animation-delay: 0.55s; }
+  .delay-5 { animation-delay: 0.7s; }
+
+  @media (max-width: 720px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+    section { padding: 4rem 1.5rem; }
+    #hero { padding: 6rem 1.5rem 3rem; }
+    #about .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    #projects .projects-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-template-columns: 1fr; }
+    .featured-visual { display: none; }
+    #skills .skills-grid { grid-template-columns: 1fr 1fr; }
+    .why-pillars { grid-template-columns: 1fr; }
+    #why { padding: 4rem 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">Sean Tay</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="padding-left:3rem; padding-right:3rem;">
+  <div class="hero-tag fade-up">Accounting & BIS Student — Melbourne</div>
+  <h1 class="hero-name fade-up delay-1">
+    Hi, I'm<br><em>Sean Tay</em>
+  </h1>
+  <p class="hero-desc fade-up delay-2">
+    Accounting & Business Information Systems student at RMIT, passionate about how digital tools and AI can transform the way the construction industry works.
+  </p>
+  <div class="hero-cta fade-up delay-3">
+    <a href="#projects" class="btn btn-primary">View my projects</a>
+    <a href="#contact" class="btn btn-secondary">Get in touch</a>
+  </div>
+  <p class="hero-scroll fade-up delay-4">Scroll to explore</p>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label">Background</p>
+  <h2 class="section-title">About me</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a penultimate-year student at RMIT University completing a double degree in <strong>Accounting and Business Information Systems</strong>. My passion sits at the intersection of technology, data, and business — specifically how digital solutions can make organisations smarter and more efficient.</p>
+      <p>I'm naturally drawn to organisations that actively embrace innovation — particularly those using <strong>digital-first approaches</strong> to improve how projects are delivered, from dashboards and data to AI-driven workflows.</p>
+      <p>When I'm not studying, I'm building small projects that help me understand how technology solves real business problems. This portfolio is part of that journey.</p>
+    </div>
+    <div class="about-card">
+      <h3>What I bring</h3>
+      <ul>
+        <li><span class="dot"></span>Analytical & problem-solving mindset</li>
+        <li><span class="dot"></span>Interest in AI and digital transformation</li>
+        <li><span class="dot"></span>Accounting & commercial awareness</li>
+        <li><span class="dot"></span>Curiosity-driven learner</li>
+        <li><span class="dot"></span>Strong written communication</li>
+        <li><span class="dot"></span>Team player, open to feedback</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">Work</p>
+  <h2 class="section-title">Projects</h2>
+  <div class="projects-grid">
+
+    <!-- FEATURED -->
+    <div class="project-card featured">
+      <div>
+        <span class="project-tag">University Project</span>
+        <h3>AI Fraud Detection Concept — CommBank</h3>
+        <p>Explored how generative AI and natural language processing could improve how CommBank communicates scam alerts to customers. Researched gaps in fraud communication, designed a chatbot concept, and produced a visual mockup using UXPilot — turning a complex AI topic into a practical, business-ready solution.</p>
+        <a href="#" class="project-link">
+          View project
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </div>
+      <div class="featured-visual">
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="20" width="60" height="44" rx="6" stroke="white" stroke-width="2"/>
+          <path d="M10 30h60" stroke="white" stroke-width="1.5"/>
+          <rect x="18" y="38" width="20" height="3" rx="1.5" fill="white" opacity="0.5"/>
+          <rect x="18" y="44" width="30" height="3" rx="1.5" fill="white" opacity="0.5"/>
+          <rect x="18" y="50" width="14" height="3" rx="1.5" fill="white" opacity="0.5"/>
+          <circle cx="58" cy="22" r="10" fill="white" opacity="0.15" stroke="white" stroke-width="1.5"/>
+          <path d="M54 22l3 3 5-5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- PROJECT 2 -->
+    <div class="project-card">
+      <span class="project-tag">Construction Tech</span>
+      <h3>Site Safety Checklist App</h3>
+      <p>A web app for daily construction site safety checks. Supervisors can tick off HSEQ categories — PPE, hazards, equipment — and generate a summary report. Built to understand how digital tools can replace paper-based processes on site.</p>
+      <a href="#" class="project-link">
+        View project
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+
+    <!-- PROJECT 3 -->
+    <div class="project-card">
+      <span class="project-tag amber">Coming Soon</span>
+      <h3>This portfolio</h3>
+      <p>Built from scratch using HTML and CSS — my first ever coding project. The goal was to understand how web pages work and to create something I could be proud to share with potential employers.</p>
+      <a href="#" class="project-link">
+        You're looking at it
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">Capabilities</p>
+  <h2 class="section-title">Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h4>Technical</h4>
+      <ul class="skill-list">
+        <li>HTML & CSS (learning)</li>
+        <li>AI prompt engineering</li>
+        <li>UX wireframing (UXPilot)</li>
+        <li>Microsoft Office Suite</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <h4>Business</h4>
+      <ul class="skill-list">
+        <li>Financial accounting</li>
+        <li>Business analysis</li>
+        <li>Process improvement</li>
+        <li>Data-driven reporting</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <h4>Interpersonal</h4>
+      <ul class="skill-list">
+        <li>Analytical thinking</li>
+        <li>Written communication</li>
+        <li>Teamwork & collaboration</li>
+        <li>Creative problem-solving</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <p class="section-label">Academic background</p>
+  <h2 class="section-title">Education</h2>
+  <div class="edu-block">
+    <div class="edu-item">
+      <p class="year">2024 — Present</p>
+      <h3>Bachelor of Accounting / Bachelor of Business</h3>
+      <p class="institution">RMIT University, Melbourne — Major in Business Information Systems</p>
+      <p>Penultimate year. Relevant coursework in digital business, data analytics, systems thinking, and financial reporting. Developed a strong interest in how organisations leverage AI and technology to improve decision-making.</p>
+    </div>
+    <div class="edu-item">
+      <p class="year">Highlight Project</p>
+      <h3>AI in Australian Banking — CommBank Case Study</h3>
+      <p class="institution">Business Information Systems — RMIT</p>
+      <p>Researched and presented on generative AI applications in fraud detection. Developed a chatbot concept and UXPilot mockup demonstrating how NLP can make scam alerts clearer and more actionable for customers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CONSTRUCTION TECH -->
+<section id="why" style="padding:0;">
+  <div class="inner" style="padding-top:6rem; padding-bottom:6rem;">
+    <p class="section-label">Motivation</p>
+    <h2 class="section-title">Why construction tech</h2>
+    <p>
+      Construction is one of the world's largest industries — and one of the least digitised. That gap is exactly where I want to work. I'm drawn to organisations that ask <strong>"how can we do this better?"</strong> and actually follow through, using data, AI, and digital tools to make projects smarter, safer, and more efficient.
+    </p>
+    <p style="margin-top: 1rem;">
+      Through my studies in <strong>Business Information Systems and Accounting</strong>, I've developed a strong interest in how technology transforms the way organisations operate. I'm eager to bring that thinking into a practical, on-the-ground environment where digital solutions have real, tangible impact.
+    </p>
+    <div class="why-pillars">
+      <div class="pillar">
+        <h4>Digital transformation</h4>
+        <p>I want to be where technology is actively reshaping an industry — not just supporting the status quo.</p>
+      </div>
+      <div class="pillar">
+        <h4>People & development</h4>
+        <p>I'm looking for an environment that invests in its people and offers structured learning from day one.</p>
+      </div>
+      <div class="pillar">
+        <h4>Data-driven delivery</h4>
+        <p>Using dashboards and AI to support better project decisions is where my BIS studies meet real-world impact.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Say hello</p>
+  <h2 class="section-title">Get in touch</h2>
+  <p>I'm currently seeking cadetship and graduate opportunities. Fill out the form below and I'll get back to you.</p>
+
+  <div class="contact-form">
+    <div class="form-success" id="form-success">
+      ✓ Thanks for reaching out! I'll be in touch soon.
+    </div>
+    <div id="form-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fname">First name</label>
+          <input type="text" id="fname" placeholder="e.g. Jane" />
+        </div>
+        <div class="form-group">
+          <label for="lname">Last name</label>
+          <input type="text" id="lname" placeholder="e.g. Smith" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" id="email" placeholder="you@company.com" />
+      </div>
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" placeholder="e.g. Cadetship opportunity" />
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" placeholder="Tell me a bit about what you're looking for…"></textarea>
+      </div>
+      <div class="form-footer">
+        <span class="form-note">Or connect on <a href="https://www.linkedin.com/in/sean-tay-94b1a92bb/" target="_blank" style="color:var(--teal); text-decoration:none; font-weight:500;">LinkedIn</a></span>
+        <button class="btn btn-primary" onclick="submitForm()">Send message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Built by Sean Tay — 2025. First ever coding project.</p>
+</footer>
+
+<script>
+  async function submitForm() {
+    const fname = document.getElementById('fname').value.trim();
+    const lname = document.getElementById('lname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const subject = document.getElementById('subject').value.trim();
+    const message = document.getElementById('message').value.trim();
+    if (!email || !message) {
+      alert('Please fill in at least your email and message.');
+      return;
+    }
+    const btn = document.querySelector('#form-body .btn-primary');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    try {
+      await fetch('https://formspree.io/f/xdabyzrk', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: fname + ' ' + lname, email, subject, message })
+      });
+      document.getElementById('form-body').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+    } catch(e) {
+      btn.textContent = 'Send message';
+      btn.disabled = false;
+      alert('Something went wrong. Please try again or reach out via LinkedIn.');
+    }
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) {
+        el.target.style.opacity = '1';
+        el.target.style.transform = 'translateY(0)';
+        el.target.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.project-card, .skill-card, .pillar, .edu-item, .about-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
